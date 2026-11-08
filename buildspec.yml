@@ -2,19 +2,39 @@ version: 0.2
 
 phases:
   install:
+    runtime-versions:
+      python:3.9
     commands:
       - echo "Installing dependencies..."
       - pip install -r requirements.txt
   pre-build:
     commands:
-      - echo "Running tests"
+      - echo "Logging into AWS..."
+      - aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 776657383134.dkr.ecr.us-east-1.amazonaws.com
+      - REPOSITORY_URI=776657383134.dkr.ecr.us-east-1.amazonaws.com/capstone-two-test
+      - IMAGE_TAG=latest
   build: 
     commands:
-      - echo "Building the project"
-      - python setup.py build
+      - echo "Building the docker image..."
+      - docker build -t 776657383134.dkr.ecr.us-east-1.amazonaws.com/capstone-two-test:latest
+      - printf '[{"name":"python-container","imageUri":"%s"}]' 776657383134.dkr.ecr.us-east-1.amazonaws.com/capstone-two-test:latest > imagedetails.json
   post_build:
     commands:
       - echo "Build completed successfully"
 artifacts:
   files:
     - '**/*'
+    - imagedetails.json
+
+
+# docker run --rm -p 5000:5000 capstone-one-test-two
+# docker build --platform linux/amd64 -t capstone-one-test-two .
+# docker push 776657383134.dkr.ecr.us-east-1.amazonaws.com/terrible-pots-repo
+# aws ecr get-login-password --region us-east-1 | docker login username AWS --password-stdin 776657383134.dkr.ecr.us-east-1.amazonaws.com/terrible-pots-repo  
+# docker tag hello-world aws_account_id.dkr.ecr.us-east-1.amazonaws.com/hello-repository
+# aws ecr get-login-password --region us-east-1 \
+# | docker login --username AWS --password-stdin aws_account_id.dkr.ecr.us-east-1.amazonaws.com
+# docker push aws_account_id.dkr.ecr.us-east-1.amazonaws.com/hello-repository
+# aws ecr describe-images \
+#     --repository-name hello-repository \
+#     --region us-east-1
