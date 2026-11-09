@@ -6,8 +6,6 @@ phases:
       python: 3.9
     commands:
       - echo "Installing dependencies..."
-      - python -m venv virtual
-      - source virtual/bin/activate
       - pip install -r requirements.txt
   pre_build:
     commands:
