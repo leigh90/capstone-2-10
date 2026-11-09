@@ -10,7 +10,6 @@ phases:
   pre_build:
     commands:
       - echo "Logging into AWS..."
-      - aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 776657383134.dkr.ecr.us-east-1.amazonaws.com
       - REPOSITORY_URI=776657383134.dkr.ecr.us-east-1.amazonaws.com/capstone-two-test
       - IMAGE_TAG=latest
   build:
