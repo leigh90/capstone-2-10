@@ -45,7 +45,7 @@ USER appuser
 COPY . .
 
 # Expose the port that the application listens on.
-EXPOSE 5001
+EXPOSE 80
 
 # Run the application.
-CMD gunicorn 'app_two:app' --bind=0.0.0.0:5001
+CMD gunicorn 'virtual.lib.python3.9.site-packages.gunicorn.http.wsgi' --bind=0.0.0.0:80
