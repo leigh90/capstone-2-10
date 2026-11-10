@@ -20,7 +20,7 @@ phases:
       - echo "Installing dependencies..."
       - python -m pip install --upgrade pip
       - pip install -r requirements.txt
-      - - python -c "import app; print('Flask application built successfully')"
+      - python -c "import app; print('Flask application built successfully')"
   pre_build:
     commands:
       - echo Running Tests ...
