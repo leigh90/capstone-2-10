@@ -28,7 +28,6 @@ phases:
   build:
     commands:
       - echo Build flask app - started on $(date)
-      - python -c "import app; print('Flask application built successfully')"
 
   post_build:
     commands:
