@@ -1,0 +1,38 @@
+version: 0.2
+
+# Required environment variables (set in the CodeBuild project):
+#   AWS_ACCOUNT_ID      - your AWS account ID
+#   AWS_DEFAULT_REGION  - e.g. us-east-1
+#   IMAGE_REPO_NAME     - ECR repository name, e.g. flask-app
+# The CodeBuild project must have "Privileged mode" enabled to run Docker.
+
+env:
+  variables:
+    IMAGE_TAG: latest
+
+phases:
+
+  install:
+    runtime-versions:
+      python: 3.9
+    commands:
+      - echo "Installing dependencies..."
+      - python -m pip install --upgrade pip
+      - pip install -r requirements.txt
+      
+  pre_build:
+    commands:
+      - echo Running Tests ...
+      - python3 test_app.py
+
+  build:
+    commands:
+      - echo Build flask app - started on $(date)
+
+  post_build:
+    commands:
+      - echo "Build completed successfully"
+
+artifacts:
+  files:
+    - '**/*'
