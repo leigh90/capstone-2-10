@@ -1,6 +1,6 @@
 import unittest
 from unittest.mock import call, patch
-import Week2.app_two as app_two
+import app_two as app_two
 
 
 class HelloWorldTests(unittest.TestCase):

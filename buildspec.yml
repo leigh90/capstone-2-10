@@ -23,7 +23,7 @@ phases:
   pre_build:
     commands:
       - echo Running Tests ...
-      - python -m pytest 
+      - python3 test_app.py
 
   build:
     commands:
