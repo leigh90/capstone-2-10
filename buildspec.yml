@@ -35,4 +35,4 @@ phases:
 
 artifacts:
   files:
-    - output.json
+    - '**/*'
